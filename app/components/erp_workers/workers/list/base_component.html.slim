@@ -1,0 +1,21 @@
+div id="workers_list" class="mb-20"
+  .card-module.bg-white/30.backdrop-blur-xl.border.border-white/20.shadow-xl.rounded-2xl.p-6.mx-4.mb-20
+    table.w-full.text-sm
+      thead
+        tr.text-slate-700.text-xs.font-semibold
+          th.py-2.text-left Email
+          th.py-2.text-left Rol
+          th.py-2.text-right Acciones
+
+      tbody
+        - @workers.each do |w|
+          tr[id="#{dom_id(w, :worker)}" class="border-b border-white/20 last:border-none"]
+            td.py-3.font-medium.text-slate-800 = w.email
+            td.py-3.text-slate-600 = w.roles_for(@account).map(&:name).join(", ")
+
+            td.py-3.text-right
+              = button_to "Quitar",
+                  helpers.erp_workers.accounts_worker_path(@account.id, id: w.id),
+                  method: :delete,
+                  form: { data: { turbo_confirm: "¿Eliminar trabajador?" } },
+                  class: "px-3 py-1 rounded-lg bg-red-500/20 text-red-700 hover:bg-red-500/30 transition"

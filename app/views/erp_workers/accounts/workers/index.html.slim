@@ -1,0 +1,9 @@
+div id="workers_form"
+  = render ErpWorkers::Workers::Form::BaseComponent.new(account: @account, roles: ErpCore::Role.for_account(@account).or(ErpCore::Role.global).worker_roles)
+
+h2.text-2xl.font-bold.mb-6.text-slate-800.mx-4
+  | Trabajadores de 
+  span.text-slate-900.font-extrabold = @account.name
+
+div id="workers_list"
+  = render ErpWorkers::Workers::List::BaseComponent.new(workers: @workers.workers, account: @account)

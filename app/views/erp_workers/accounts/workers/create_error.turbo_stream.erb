@@ -1,0 +1,5 @@
+<%= turbo_stream.replace "flashes" do %>
+  <%= render ErpCore::Ui::FlashMessages::BaseComponent.new(
+        flash: { alert: @error }
+      ) %>
+<% end %>

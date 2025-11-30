@@ -1,0 +1,27 @@
+div id="workers_form"
+  .card-module.bg-white/30.backdrop-blur-xl.border.border-white/20.shadow-xl.rounded-2xl.p-6.mb-6.mx-4.mt-6
+    h3.text-xl.font-semibold.text-slate-800.mb-1 Añadir trabajador
+    p.text-sm.text-slate-600.mb-4 Ingresa el correo del trabajador y asígnale un rol.
+
+    = form_with url: helpers.erp_workers.accounts_workers_path(account_id: @account.id),
+                scope: :worker,
+                local: false,
+                class: "space-y-4" do |f|
+
+      .space-y-2
+        = f.label :email, "Correo electrónico", class: "text-sm font-medium text-slate-700"
+        = f.email_field :email,
+            required: true,
+            placeholder: "usuario@ejemplo.com",
+            class: "w-full px-4 py-2 rounded-xl bg-white/40 border border-white/30 backdrop-blur-md focus:ring-2 focus:ring-slate-600/30 outline-none text-slate-800 placeholder-slate-500"
+
+      .space-y-2
+        = f.label :role, "Rol asignado", class: "text-sm font-medium text-slate-700"
+        = f.select :role,
+            options_for_select(@roles.map { |r| [r.name.humanize, r.name] }),
+            {},
+            class: "w-full px-4 py-2 rounded-xl bg-white/40 border border-white/30 backdrop-blur-md focus:ring-2 focus:ring-slate-600/30 outline-none text-slate-800"
+
+      .flex.justify-end
+        = f.submit "Agregar trabajador",
+            class: "px-5 py-2 rounded-xl bg-slate-800 hover:bg-slate-900 text-white font-medium shadow-lg shadow-slate-900/10 transition-all"

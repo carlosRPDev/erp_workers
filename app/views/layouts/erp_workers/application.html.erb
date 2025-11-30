@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Erp workers</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= yield :head %>
+    <%= stylesheet_link_tag "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css", media: "all" %>
+
+    <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+
+  </head>
+  <body class="min-h-screen bg-gradient-to-tl from-gray-300 to-slate-50 flex-1 md:pt-20 transition-all duration-300 ease-in-out">
+    <%= render ErpUsers::Ui::Layout::BaseComponent.new(active: :home, title: @account.name, user_name: current_user.email, avatar: "https://img.lovepik.com/png/20231125/man-avatar-image-for-profile-child-diverse-guy_693690_wh860.png") %>
+    
+    <div class="main-content" data-controller="erp-users--layout">
+      <%= render ErpCore::Ui::FlashMessages::BaseComponent.new(flash: flash, resource: defined?(resource) ? resource : nil) %>
+      <%= yield %>
+    </div>
+  </body>
+</html>

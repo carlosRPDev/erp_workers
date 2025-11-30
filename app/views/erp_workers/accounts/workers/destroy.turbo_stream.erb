@@ -1,0 +1,9 @@
+<%= turbo_stream.replace "workers_list" do %>
+  <%= render ErpWorkers::Workers::List::BaseComponent.new(workers: @workers.workers, account: @account) %>
+<% end %>
+
+<%= turbo_stream.replace "flashes" do %>
+  <%= render ErpCore::Ui::FlashMessages::BaseComponent.new(
+        flash: { notice: "Trabajador removido" }
+      ) %>
+<% end %>
