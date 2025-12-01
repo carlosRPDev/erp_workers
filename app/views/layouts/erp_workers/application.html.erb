@@ -17,9 +17,9 @@
 
   </head>
   <body class="min-h-screen bg-gradient-to-tl from-gray-300 to-slate-50 flex-1 md:pt-20 transition-all duration-300 ease-in-out">
-    <%= render ErpUsers::Ui::Layout::BaseComponent.new(active: :home, title: @account.name, user_name: current_user.email, avatar: "https://img.lovepik.com/png/20231125/man-avatar-image-for-profile-child-diverse-guy_693690_wh860.png") %>
+    <%= render ErpCore::Ui::Layout::BaseComponent.new(active: :home, title: @account.name, user_name: current_user.email, avatar: "https://img.lovepik.com/png/20231125/man-avatar-image-for-profile-child-diverse-guy_693690_wh860.png") %>
     
-    <div class="main-content" data-controller="erp-users--layout">
+    <div class="main-content" data-controller="erp-core--layout">
       <%= render ErpCore::Ui::FlashMessages::BaseComponent.new(flash: flash, resource: defined?(resource) ? resource : nil) %>
       <%= yield %>
     </div>
