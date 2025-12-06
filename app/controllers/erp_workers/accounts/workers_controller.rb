@@ -55,7 +55,9 @@ module ErpWorkers
         @workers = @account.users.workers.includes(:roles)
         respond_to do |format|
           format.turbo_stream { render "destroy" }
-          format.html { redirect_to erp_workers.accounts_workers_path(account_id: @account.id), notice: "Trabajador removido" }
+          format.html do
+            redirect_to erp_workers.accounts_workers_path(account_id: @account.id), notice: "Trabajador removido"
+          end
           format.json { head :no_content }
         end
       end
