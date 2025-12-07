@@ -56,7 +56,7 @@ module ErpWorkers
         respond_to do |format|
           format.turbo_stream { render "destroy" }
           format.html do
-            redirect_to erp_workers.accounts_workers_path(account_id: @account.id), notice: I18n.l(delete_worker_successfully)
+            redirect_to erp_workers.accounts_workers_path(account_id: @account.id), notice: I18n.t("erp_workers.accounts.workers.delete_worker_successfully")
           end
           format.json { head :no_content }
         end
@@ -70,7 +70,7 @@ module ErpWorkers
 
       def authorize_owner!
         unless current_user.has_role?("owner", account: @account)
-          redirect_to erp_users.accounts_dashboard_path(@account.id), alert: I18n.l(not_unauthorized)
+          redirect_to erp_users.accounts_dashboard_path(@account.id), alert: I18n.t("erp_workers.accounts.workers.not_unauthorized")
         end
       end
 
