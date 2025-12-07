@@ -1,0 +1,6 @@
+es:
+  erp_workers:
+    accounts:
+      workers:
+        delete_worker_successfully: "Trabajador removido"
+        not_unauthorized: "No autorizado"

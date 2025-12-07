@@ -26,7 +26,7 @@ module ErpWorkers
             flash[:notice] = "Invitación enviada a #{user.email}"
             redirect_to erp_workers.accounts_workers_path(account_id: @account.id)
           end
-          format.json { render json: { success: true, user: user.as_json(only: [:id, :email]) }, status: :created }
+          format.json { render json: { success: true, user: user.as_json(only: [ :id, :email ]) }, status: :created }
           format.turbo_stream do
             puts "LLego como turbo!"
             @user = user
@@ -40,7 +40,7 @@ module ErpWorkers
             flash[:alert] = e.message
             redirect_to erp_workers.accounts_workers_path(account_id: @account.id)
           end
-          format.json { render json: { error: e.message }, status: :unprocessable_entity }
+          format.json { render json: { error: e.message }, status: :unprocessable_content }
           format.turbo_stream do
             @error = e.message
             render "create_error"
@@ -56,7 +56,7 @@ module ErpWorkers
         respond_to do |format|
           format.turbo_stream { render "destroy" }
           format.html do
-            redirect_to erp_workers.accounts_workers_path(account_id: @account.id), notice: "Trabajador removido"
+            redirect_to erp_workers.accounts_workers_path(account_id: @account.id), notice: I18n.l(delete_worker_successfully)
           end
           format.json { head :no_content }
         end
@@ -70,7 +70,7 @@ module ErpWorkers
 
       def authorize_owner!
         unless current_user.has_role?("owner", account: @account)
-          redirect_to erp_users.accounts_dashboard_path(@account.id), alert: "No autorizado"
+          redirect_to erp_users.accounts_dashboard_path(@account.id), alert: I18n.l(not_unauthorized)
         end
       end
 
