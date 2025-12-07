@@ -28,7 +28,6 @@ module ErpWorkers
           end
           format.json { render json: { success: true, user: user.as_json(only: [ :id, :email ]) }, status: :created }
           format.turbo_stream do
-            puts "LLego como turbo!"
             @user = user
             @workers = @account.users.workers.includes(:roles)
             render "create_success"
@@ -75,7 +74,7 @@ module ErpWorkers
       end
 
       def worker_params
-        params.require(:worker).permit(:email, :role)
+        params.expect(:worker [:email, :role])
       end
     end
   end
