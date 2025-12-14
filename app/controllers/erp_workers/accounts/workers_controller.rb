@@ -3,9 +3,9 @@
 module ErpWorkers
   module Accounts
     class WorkersController < ErpWorkers::ApplicationController
-      before_action :authenticate_user!
       before_action :load_account
       before_action :authorize_owner!
+      before_action :authenticate_user!
 
       def index
         @workers = @account.users.includes(:roles)
@@ -69,7 +69,7 @@ module ErpWorkers
 
       def authorize_owner!
         unless current_user.has_role?("owner", account: @account)
-          redirect_to erp_users.accounts_dashboard_path(@account.id), alert: I18n.t("erp_workers.accounts.workers.not_unauthorized")
+          redirect_to erp_accounts.account_path(@account.id), alert: I18n.t("erp_workers.accounts.workers.not_unauthorized")
         end
       end
 

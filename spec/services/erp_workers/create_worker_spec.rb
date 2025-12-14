@@ -28,6 +28,9 @@ RSpec.describe ErpWorkers::CreateWorker do
 
     context "when user does not exist" do
       it "creates a user, joins account and assigns role" do
+        allow_any_instance_of(ErpCore::User)
+          .to receive(:send_reset_password_instructions)
+
         expect {
           user = call_service(email: email)
 
@@ -49,6 +52,9 @@ RSpec.describe ErpWorkers::CreateWorker do
       let!(:existing_user) { create(:erp_core_user, :confirmed, email: email) }
 
       it "does not create a new user" do
+        allow_any_instance_of(ErpCore::User)
+          .to receive(:send_reset_password_instructions)
+
         expect {
           user = call_service(email: email)
           expect(user).to eq(existing_user)
