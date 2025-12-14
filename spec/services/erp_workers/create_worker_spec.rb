@@ -73,7 +73,7 @@ RSpec.describe ErpWorkers::CreateWorker do
           call_service(email: email)
         }.to raise_error(
           ErpWorkers::CreateWorker::Error,
-          "Email ya existe"
+          "Correo electrónico ya existe"
         )
       end
     end
