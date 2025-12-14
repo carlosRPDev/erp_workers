@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe 'ErpWorkers::Workers::Form::BaseComponent', type: :component do
+RSpec.describe ErpWorkers::Workers::Form::BaseComponent, type: :component do
   let(:account) { create(:erp_core_account) }
   let(:roles) { %w[worker owner] }
 
