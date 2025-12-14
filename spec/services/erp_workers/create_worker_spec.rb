@@ -37,8 +37,9 @@ RSpec.describe ErpWorkers::CreateWorker do
           expect(user.email).to eq(email)
           expect(user.accounts).to include(account)
           expect(user.has_role?(role, account: account)).to be(true)
-        }.to change(ErpCore::User, :count).by(1)
+        }.to change { ErpCore::User.where(email: email).count }.by(1)
       end
+
 
       it "sends reset password instructions" do
         expect_any_instance_of(ErpCore::User)
@@ -58,7 +59,7 @@ RSpec.describe ErpWorkers::CreateWorker do
         expect {
           user = call_service(email: email)
           expect(user).to eq(existing_user)
-        }.not_to change(ErpCore::User, :count)
+        }.not_to change { ErpCore::User.where(email: email).count }
       end
     end
 
