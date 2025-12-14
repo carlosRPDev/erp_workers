@@ -40,7 +40,6 @@ RSpec.describe ErpWorkers::CreateWorker do
         }.to change { ErpCore::User.where(email: email).count }.by(1)
       end
 
-
       it "sends reset password instructions" do
         expect_any_instance_of(ErpCore::User)
           .to receive(:send_reset_password_instructions)
