@@ -3,9 +3,9 @@
 module ErpWorkers
   module Accounts
     class WorkersController < ErpWorkers::ApplicationController
+      before_action :authenticate_user!
       before_action :load_account
       before_action :authorize_owner!
-      before_action :authenticate_user!
 
       def index
         @workers = @account.users.includes(:roles)
@@ -74,7 +74,7 @@ module ErpWorkers
       end
 
       def worker_params
-        params.expect(:worker [:email, :role])
+        params.expect(worker: [ :email, :role ])
       end
     end
   end
